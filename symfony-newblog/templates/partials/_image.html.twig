@@ -1,0 +1,24 @@
+ <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}"> <!--Hacer un css para que quede bonito-->
+<div class="col-xs-12 col-sm-6 col-md-3">
+<div class="sol">
+  <img class="img-responsive" src="{{ asset('images/index/portfolio/' ~ image.ciudad) }}" alt="First category picture">
+  <div class="behind">
+      <div class="head text-center">
+        <ul class="list-inline">
+          <li>
+            <a class="gallery" href="{{ asset('images/index/gallery/' ~ image.ciudad) }}" data-toggle="tooltip" data-original-title="Quick View">
+             
+            </a>
+        </ul>
+      </div>
+      <div class="row box-content">
+        <ul class="list-inline text-center">
+            <li> {{ image.nombre}}</li>
+          <li><i class="fa fa-eye"></i> {{ image.views }}</li>
+          <li><i class="fa fa-heart"></i> {{ image.likes }}</li>
+          <li><i class="fa fa-download"></i> {{ image.downloads }}</li>
+        </ul>
+      </div>
+  </div>
+</div>
+</div> 
