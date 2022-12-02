@@ -10,6 +10,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ContactFormType;
 use App\Entity\Contact;
+use App\Entity\Image;
 use App\Entity\Pais;
 
 
@@ -22,7 +23,15 @@ class PageController extends AbstractController
 
         $paises = $repository->findAll();
 
-        return $this->render('page/index.html.twig', ['paises' => $paises]);
+        $imagesRepository = $doctrine->getRepository(Image::class);
+
+        $paises = $repository->findAll();
+        $images = $imagesRepository->findAll();
+        
+
+        return $this->render('page/index.html.twig', 
+        ['paises' => $paises,
+         'images' => $images]);
     }
      /**
      * @Route("/about", name="about")
