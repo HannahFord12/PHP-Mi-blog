@@ -9,7 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Team;
 use App\Entity\Product;
 use App\Entity\Comment;
+use App\Entity\Contact;
 use App\Form\CommentFormType;
+use App\Form\ContactFormType;
 use Symfony\Component\HttpFoundation\Request;
 
 class PageController extends AbstractController
@@ -88,7 +90,20 @@ class PageController extends AbstractController
      /**
      * @Route("/contact", name="contact")
      */
-    public function contact():Response{
-        return $this->render('page/contact.html.twig', []);
+    public function contact(ManagerRegistry $doctrine, Request $request): Response
+    {
+        $contact = new Contact();
+        $form = $this->createForm(ContactFormType::class, $contact);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $contacto = $form->getData();    
+            $entityManager = $doctrine->getManager();    
+            $entityManager->persist($contacto);
+            $entityManager->flush();
+            return $this->redirectToRoute('index', []);
+        }
+        return $this->render('page/contact.html.twig', array(
+            'form' => $form->createView()    
+        ));
     }
 }
